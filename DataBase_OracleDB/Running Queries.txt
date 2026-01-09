@@ -1,0 +1,1019 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Jan 8 16:39:27 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect / as sysdba;
+Connected.
+SQL> create user idba identified by idba;
+
+User created.
+
+SQL> connect idba;
+Enter password:
+ERROR:
+ORA-01045: user IDBA lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect / as sysdba;
+Connected.
+SQL> grant all privileges to idba;
+
+Grant succeeded.
+
+SQL> connect idba;
+Enter password:
+Connected.
+SQL> connect / as sysdba;
+Connected.
+SQL> revoke all privileges from idba;
+
+Revoke succeeded.
+
+SQL> connect idba;
+Enter password:
+ERROR:
+ORA-01045: user IDBA lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> drop user idba;
+SP2-0640: Not connected
+SQL> connect / as sysdba;
+Connected.
+SQL> drop user idba;
+
+User dropped.
+
+SQL> connect idba;
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect / as sysdba;
+Connected.
+SQL> create user idba identified by idba;
+
+User created.
+
+SQL> grant all privileges to idba;
+
+Grant succeeded.
+
+SQL> connect idba;
+Enter password:
+Connected.
+SQL> connect idba;
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect idba;
+Enter password:
+Connected.
+SQL> create table Student (htno number(5),sname char(20),percentage number(5,2));
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(5)
+ SNAME                                              CHAR(20)
+ PERCENTAGE                                         NUMBER(5,2)
+
+SQL> insert into student values (101,'Krishna',99.99);
+
+1 row created.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+
+SQL> insert into student values ('abcd','Krishna',99.99);
+insert into student values ('abcd','Krishna',99.99)
+                            *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> insert into student values (101,'1234',99.99);
+
+1 row created.
+
+SQL> insert into student values (101,1234,99.99);
+
+1 row created.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+
+SQL> insert into student values (101,Krishna,99.99);
+insert into student values (101,Krishna,99.99)
+                                *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into student values (101,$^$^$%,99.99);
+insert into student values (101,$^$^$%,99.99)
+                                *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> insert into student values (101,'$^$^$%',99.99);
+
+1 row created.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+       101 $^$^$%                    99.99
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+       101 $^$^$%                    99.99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update student htno=102;
+update student htno=102
+                   *
+ERROR at line 1:
+ORA-00971: missing SET keyword
+
+
+SQL> update student set htno=102;
+
+4 rows updated.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       102 Krishna                   99.99
+       102 1234                      99.99
+       102 1234                      99.99
+       102 $^$^$%                    99.99
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+       101 $^$^$%                    99.99
+
+SQL> update student set htno=102 where sname='$^$^$%';
+
+1 row updated.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+       102 $^$^$%                    99.99
+
+SQL> update student set sname='Sravan' where sname='$^$^$%';
+
+1 row updated.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+       102 Sravan                    99.99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete student;
+
+4 rows deleted.
+
+SQL> select * from student;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       101 1234                      99.99
+       101 1234                      99.99
+       102 Sravan                    99.99
+
+SQL> delete student where sname='1234';
+
+2 rows deleted.
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       102 Sravan                    99.99
+
+SQL>
+--------------------------------------
+09-01-2026
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Jan 9 16:09:01 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect idba;
+Enter password:
+Connected.
+SQL> create table emp(eid number(1),ename number(20));
+
+Table created.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(1)
+ ENAME                                              NUMBER(20)
+
+SQL> alter table emp add(jod date);
+
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(1)
+ ENAME                                              NUMBER(20)
+ JOD                                                DATE
+
+SQL> alter table emp modify (eid number(5),ename varchar2(20));
+
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ JOD                                                DATE
+
+SQL> alter table emp rename column jod to doj;
+
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ DOJ                                                DATE
+
+SQL> alter table emp modify (jod date);
+alter table emp modify (jod date)
+                        *
+ERROR at line 1:
+ORA-00904: "JOD": invalid identifier
+
+
+SQL> alter table emp modify (doj date);
+
+Table altered.
+
+SQL> alter table emp modify (dob date);
+alter table emp modify (dob date)
+                        *
+ERROR at line 1:
+ORA-00904: "DOB": invalid identifier
+
+
+SQL> alter table emp drop column doj;
+
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+
+SQL> alter table emp add(doj date);
+
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ DOJ                                                DATE
+
+SQL> rename emp to emp1;
+
+Table renamed.
+
+SQL> desc emp;
+ERROR:
+ORA-04043: object emp does not exist
+
+
+SQL> desc emp1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ DOJ                                                DATE
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+STUDENT                        TABLE
+
+SQL> insert into emp1 values(101,'Krishna','10-jan-26');
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+
+SQL> insert into emp1 values(102,'Sravan',sysdate);
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+
+SQL> sysdate from dual;
+SP2-0734: unknown command beginning "sysdate fr..." - rest of line ignored.
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+09-JAN-26
+
+SQL> select currentdate from dual;
+select currentdate from dual
+       *
+ERROR at line 1:
+ORA-00904: "CURRENTDATE": invalid identifier
+
+
+SQL> select current date from dual;
+select current date from dual
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> currentdate from dual;
+SP2-0734: unknown command beginning "currentdat..." - rest of line ignored.
+SQL> select currentdate from dual;
+select currentdate from dual
+       *
+ERROR at line 1:
+ORA-00904: "CURRENTDATE": invalid identifier
+
+
+SQL> select current date from dual;
+select current date from dual
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+09-JAN-26
+
+SQL> select timestamp from dual;
+select timestamp from dual
+       *
+ERROR at line 1:
+ORA-00904: "TIMESTAMP": invalid identifier
+
+
+SQL> select time_stamp from dual;
+select time_stamp from dual
+       *
+ERROR at line 1:
+ORA-00904: "TIME_STAMP": invalid identifier
+
+
+SQL> select time stamp from dual;
+select time stamp from dual
+       *
+ERROR at line 1:
+ORA-00904: "TIME": invalid identifier
+
+
+SQL> select timestamp from dual;
+select timestamp from dual
+       *
+ERROR at line 1:
+ORA-00904: "TIMESTAMP": invalid identifier
+
+
+SQL> show timestamp from dual;
+SP2-0158: unknown SHOW option "timestamp"
+SP2-0158: unknown SHOW option "from"
+SP2-0158: unknown SHOW option "dual"
+SQL> select systimestamp from dual;
+
+SYSTIMESTAMP
+---------------------------------------------------------------------------
+09-JAN-26 04.34.15.329000 PM +05:30
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+09-JAN-26
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+09-JAN-26
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+
+SQL> insert into emp1 values(102,'Sravan');
+insert into emp1 values(102,'Sravan')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into emp1(eid,ename) values(103,'Saraswathi');
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi
+
+SQL> insert into emp1 values(&eid,&ename,&doj);
+Enter value for eid: 104
+Enter value for ename: 'Srinivas'
+Enter value for doj: sysdate
+old   1: insert into emp1 values(&eid,&ename,&doj)
+new   1: insert into emp1 values(104,'Srinivas',sysdate)
+
+1 row created.
+
+SQL> /
+Enter value for eid: 105
+Enter value for ename: 'Bindu'
+Enter value for doj: sysdate
+old   1: insert into emp1 values(&eid,&ename,&doj)
+new   1: insert into emp1 values(105,'Bindu',sysdate)
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> insert into emp1 values(&&eid,&&ename,&&doj);
+Enter value for eid: 106
+Enter value for ename: 'Supraja'
+Enter value for doj: sysdate
+old   1: insert into emp1 values(&&eid,&&ename,&&doj)
+new   1: insert into emp1 values(106,'Supraja',sysdate)
+
+1 row created.
+
+SQL> //
+old   1: insert into emp1 values(&&eid,&&ename,&&doj)
+new   1: insert into emp1 values(106,'Supraja',sysdate)
+
+1 row created.
+
+SQL> //
+old   1: insert into emp1 values(&&eid,&&ename,&&doj)
+new   1: insert into emp1 values(106,'Supraja',sysdate)
+
+1 row created.
+
+SQL> //
+old   1: insert into emp1 values(&&eid,&&ename,&&doj)
+new   1: insert into emp1 values(106,'Supraja',sysdate)
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+
+9 rows selected.
+
+SQL> select eid,ename from emp1;
+
+       EID ENAME
+---------- --------------------
+       101 Krishna
+       102 Sravan
+       103 Saraswathi
+       104 Srinivas
+       105 Bindu
+       106 Supraja
+       106 Supraja
+       106 Supraja
+       106 Supraja
+
+9 rows selected.
+
+SQL> select eid,ename from emp1 where eid=104;
+
+       EID ENAME
+---------- --------------------
+       104 Srinivas
+
+SQL> select eid,ename from emp1 where unique
+  2  ;
+select eid,ename from emp1 where unique
+                                 *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select eid,ename from emp1 where eid>=103;
+
+       EID ENAME
+---------- --------------------
+       103 Saraswathi
+       104 Srinivas
+       105 Bindu
+       106 Supraja
+       106 Supraja
+       106 Supraja
+       106 Supraja
+
+7 rows selected.
+
+SQL> select eid,ename from emp1 where eid>=103 and eid<=105;
+
+       EID ENAME
+---------- --------------------
+       103 Saraswathi
+       104 Srinivas
+       105 Bindu
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+
+9 rows selected.
+
+SQL> select eid,ename from emp1 where eid>=103 or eid<=105;
+
+       EID ENAME
+---------- --------------------
+       101 Krishna
+       102 Sravan
+       103 Saraswathi
+       104 Srinivas
+       105 Bindu
+       106 Supraja
+       106 Supraja
+       106 Supraja
+       106 Supraja
+
+9 rows selected.
+
+SQL> select eid,ename from emp1 where eid>=103 or eid=105;
+
+       EID ENAME
+---------- --------------------
+       103 Saraswathi
+       104 Srinivas
+       105 Bindu
+       106 Supraja
+       106 Supraja
+       106 Supraja
+       106 Supraja
+
+7 rows selected.
+
+SQL> select * from emp1 order by ename;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       105 Bindu                09-JAN-26
+       101 Krishna              10-JAN-26
+       103 Saraswathi
+       102 Sravan               09-JAN-26
+       104 Srinivas             09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+
+9 rows selected.
+
+SQL> select * from emp1 order by ename desc;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       104 Srinivas             09-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi
+       101 Krishna              10-JAN-26
+       105 Bindu                09-JAN-26
+
+9 rows selected.
+
+SQL> update emp1 set doj='5-aug-25' where eid=103;
+
+1 row updated.
+
+SQL> select * from emp1 order by ename;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       105 Bindu                09-JAN-26
+       101 Krishna              10-JAN-26
+       103 Saraswathi           05-AUG-25
+       102 Sravan               09-JAN-26
+       104 Srinivas             09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+
+9 rows selected.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+       106 Supraja              09-JAN-26
+
+9 rows selected.
+
+SQL> update emp1 set eid=107 where systimestamp;
+update emp1 set eid=107 where systimestamp
+                                         *
+ERROR at line 1:
+ORA-00920: invalid relational operator
+
+
+SQL> delete emp1 where eid=106;
+
+4 rows deleted.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> create table emp as select * from emp1;
+
+Table created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> create table emp2 as select * from emp1;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP                            TABLE
+EMP1                           TABLE
+EMP2                           TABLE
+STUDENT                        TABLE
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> update table set eid=106 where ename='Bindu';
+update table set eid=106 where ename='Bindu'
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update set eid=105 where ename='Bindu';
+update set eid=105 where ename='Bindu'
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update table set eid=105 where ename='Bindu';
+update table set eid=105 where ename='Bindu'
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update emp set eid=105 where ename='Bindu';
+
+1 row updated.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> update table set eid=106 where ename='Bindu';
+update table set eid=106 where ename='Bindu'
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update emp set eid=106 where ename='Bindu';
+
+1 row updated.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       106 Bindu                09-JAN-26
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update emp set eid=106 where ename='Bindu';
+
+1 row updated.
+
+SQL> update emp set eid=106 where ename='Sravan';
+
+1 row updated.
+
+SQL> update emp set eid=106 where ename='Krishna';
+
+1 row updated.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       106 Krishna              10-JAN-26
+       106 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       106 Bindu                09-JAN-26
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> commit;
+
+Commit complete.
+
+SQL> truncate emp;
+truncate emp
+           *
+ERROR at line 1:
+ORA-03290: Invalid truncate command - missing CLUSTER or TABLE keyword
+
+
+SQL> truncate table emp;
+
+Table truncated.
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> commit;
+
+Commit complete.
+
+SQL> drop table emp;
+
+Table dropped.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from emp;
+select * from emp
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> insert into emp1 values(106,'Shyamala'sysdate);
+insert into emp1 values(106,'Shyamala'sysdate)
+                                      *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> insert into emp1 values(106,'Shyamala',sysdate);
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
