@@ -1017,3 +1017,1018 @@ SQL> commit;
 Commit complete.
 
 SQL>
+=============
+19-01-2026
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jan 19 16:16:38 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect idb;
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> connect idba;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+STUDENT                        TABLE
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL> select * from emp2;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> select * from student;
+
+      HTNO SNAME                PERCENTAGE
+---------- -------------------- ----------
+       101 Krishna                   99.99
+       102 Sravan                    99.99
+
+SQL> create table s1 (sid number(3) primary key,sname varchar2(20) not null,mnuber number(10) unique);
+
+Table created.
+
+SQL> desc s1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(3)
+ SNAME                                     NOT NULL VARCHAR2(20)
+ MNUBER                                             NUMBER(10)
+
+SQL> insert into s1 values(1,'Krishna',12345);
+
+1 row created.
+
+SQL> select * from s1;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         1 Krishna                   12345
+
+SQL> insert into s1 values(1,'Krishna',123456);
+insert into s1 values(1,'Krishna',123456)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (IDBA.SYS_C007127) violated
+
+
+SQL> insert into s1 values(2,'Krishna',12345);
+insert into s1 values(2,'Krishna',12345)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (IDBA.SYS_C007128) violated
+
+
+SQL> insert into s1 values(2,'Krishna',123456);
+
+1 row created.
+
+SQL> select * from s1;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         1 Krishna                   12345
+         2 Krishna                  123456
+
+SQL> insert into s1(sid,mnuber) values(3,1234567);
+insert into s1(sid,mnuber) values(3,1234567)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("IDBA"."S1"."SNAME")
+
+
+SQL> insert into s1(sid,sname) values(3,'Krishna');
+
+1 row created.
+
+SQL> select * from s1;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         1 Krishna                   12345
+         2 Krishna                  123456
+         3 Krishna
+
+SQL> insert into s1(sid,sname) values(4,'Krishna');
+
+1 row created.
+
+SQL> create table s2 (sid number(3) primary key,marks number(10) check(marks<=100));
+
+Table created.
+
+SQL> desc s2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(3)
+ MARKS                                              NUMBER(10)
+
+SQL> insert into s2 values(1,99);
+
+1 row created.
+
+SQL> select * from s2;
+
+       SID      MARKS
+---------- ----------
+         1         99
+
+SQL> insert into s2 values(1,101);
+insert into s2 values(1,101)
+*
+ERROR at line 1:
+ORA-02290: check constraint (IDBA.SYS_C007129) violated
+
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME = 's1';
+
+no rows selected
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'S1';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+SYS_C007126                    C
+SYS_C007127                    P
+SYS_C007128                    U
+
+SQL> desc s1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(3)
+ SNAME                                     NOT NULL VARCHAR2(20)
+ MNUBER                                             NUMBER(10)
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'S2';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+SYS_C007129                    C
+SYS_C007130                    P
+
+SQL>
+SQL> ALTER TABLE S2 DROP CONSTRAINT "SYS_C007130";
+
+Table altered.
+
+SQL> insert into s2 values(1,101);
+insert into s2 values(1,101)
+*
+ERROR at line 1:
+ORA-02290: check constraint (IDBA.SYS_C007129) violated
+
+
+SQL> ALTER TABLE S2 DROP CONSTRAINT "SYS_C007129";
+
+Table altered.
+
+SQL> insert into s2 values(1,101);
+
+1 row created.
+
+SQL> select * from s2;
+
+       SID      MARKS
+---------- ----------
+         1         99
+         1        101
+
+SQL> ALTER TABLE S2 DROP CONSTRAINT check;
+ALTER TABLE S2 DROP CONSTRAINT check
+                               *
+ERROR at line 1:
+ORA-02250: missing or invalid constraint name
+
+
+SQL> seclect * from dual;
+SP2-0734: unknown command beginning "seclect * ..." - rest of line ignored.
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> select 2+3 from dual;
+
+       2+3
+----------
+         5
+
+SQL> select 2+3 from s1;
+
+       2+3
+----------
+         5
+         5
+         5
+         5
+
+SQL> select 2+3 from s2;
+
+       2+3
+----------
+         5
+         5
+
+SQL> truncate s2;
+truncate s2
+          *
+ERROR at line 1:
+ORA-03290: Invalid truncate command - missing CLUSTER or TABLE keyword
+
+
+SQL> truncate table s2;
+
+Table truncated.
+
+SQL> select 2+3 from s2;
+
+no rows selected
+
+SQL> select 2+3 from dual;
+
+       2+3
+----------
+         5
+
+SQL> select 2+3 as Addition from dual;
+
+  ADDITION
+----------
+         5
+
+SQL> select 2-3 as Addition from dual;
+
+  ADDITION
+----------
+        -1
+
+SQL> select 2-3 as Sub from dual;
+
+       SUB
+----------
+        -1
+
+SQL> select 5-3*4/2 as Bodmas from dual;
+
+    BODMAS
+----------
+        -1
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL> select * from emp1 where eid=102;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       102 Sravan               09-JAN-26
+
+SQL> select * from emp1 where eid!=102;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where eid!=102;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where eid<>102;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where ename='Bindu';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where ename<='Bindu';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where ename<>'Bindu';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where eid=102 and ename='Bindu';
+
+no rows selected
+
+SQL> select * from emp1 where eid=102 or ename='Bindu';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       102 Sravan               09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where eid=105 and ename='Bindu';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where eid=105 or ename='Bindu';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where eid=100 or ename='Bindudtffr';
+
+no rows selected
+
+SQL> select * from emp1 where eid=100 and ename='Bindudtffr';
+
+no rows selected
+
+SQL> select * from emp1 where not eid=101;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where not eid=100;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL> select * from emp1 where eid=null;
+
+no rows selected
+
+SQL> select * from s1 where eid=null;
+select * from s1 where eid=null
+                       *
+ERROR at line 1:
+ORA-00904: "EID": invalid identifier
+
+
+SQL> select * from s1 where mnuber=null;
+
+no rows selected
+
+SQL> select * from s1;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         1 Krishna                   12345
+         2 Krishna                  123456
+         3 Krishna
+         4 Krishna
+
+SQL> select * from s1 where mnuber=null;
+
+no rows selected
+
+SQL> select * from s1 where mnuber= not null;
+select * from s1 where mnuber= not null
+                               *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from s1 where mnuber= notnull;
+select * from s1 where mnuber= notnull
+                               *
+ERROR at line 1:
+ORA-00904: "NOTNULL": invalid identifier
+
+
+SQL> select * from s1 where mnuber is not null;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         1 Krishna                   12345
+         2 Krishna                  123456
+
+SQL> select * from s1 where mnuber is null;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         3 Krishna
+         4 Krishna
+
+SQL> select * from s1;
+
+       SID SNAME                    MNUBER
+---------- -------------------- ----------
+         1 Krishna                   12345
+         2 Krishna                  123456
+         3 Krishna
+         4 Krishna
+
+SQL> select mnuber from s1;
+
+    MNUBER
+----------
+     12345
+    123456
+
+
+
+SQL> select * from emp1 where ename like "S%";
+select * from emp1 where ename like "S%"
+                                    *
+ERROR at line 1:
+ORA-00904: "S%": invalid identifier
+
+
+SQL> select * from emp1 where ename like 'S%';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where ename like 's%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like '%s';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       104 Srinivas             09-JAN-26
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL> select * from emp1 where ename like 'Sr%';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       102 Sravan               09-JAN-26
+       104 Srinivas             09-JAN-26
+
+SQL> select * from emp1 where ename like '%r%';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+
+SQL> select * from emp1 where ename like '%ra%';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+
+SQL> select * from emp1 where ename like '%a%';
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       106 Shyamala             09-JAN-26
+
+SQL> select * from emp1 where ename like  '%[a-z]%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like  '[a-z]%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like  '[K-z]%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like  '%[K-z]%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like  '%[K-Z]%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like  '%[K]%';
+
+no rows selected
+
+SQL> select * from emp1 where ename like  '%[S]%';
+
+no rows selected
+
+SQL> select * from emp2;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1;;
+select * from emp1;
+                  *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select * from emp1;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL> select * from emp1 where eid in(101,105);
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where eid in(101,100);
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+
+SQL> select * from emp1 where eid between 101 to 105;
+select * from emp1 where eid between 101 to 105
+                                         *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> select * from emp1 where eid between 101 and 105;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+
+SQL> select * from emp1 where eid between 0 and 1000;
+
+       EID ENAME                DOJ
+---------- -------------------- ---------
+       101 Krishna              10-JAN-26
+       102 Sravan               09-JAN-26
+       103 Saraswathi           05-AUG-25
+       104 Srinivas             09-JAN-26
+       105 Bindu                09-JAN-26
+       106 Shyamala             09-JAN-26
+
+6 rows selected.
+
+SQL>
+------------------------------
+20-0-2026
+--
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Jan 20 16:15:44 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect idba;
+Enter password:
+Connected.
+SQL> create table customer(id number(3),name varchar2(10),age number(3),address varchar2(10),salary number(5));
+
+Table created.
+
+SQL> insert into customer values(101,'Krishna',25,'Hyd',50000);
+
+1 row created.
+
+SQL> insert into customer values(102,'Nandhini',20,'VJA',20000);
+
+1 row created.
+
+SQL> insert into customer values(103,'Supraja',50,'KMM',40000);
+
+1 row created.
+
+SQL> insert into customer values(104,'Supraja',30,'KMM',30000);
+
+1 row created.
+
+SQL> insert into customer values(105,'Bindu',60,'GTN',70000);
+
+1 row created.
+
+SQL> select * from customer;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> SELECT AGE FROM CUSTOMER WHERE EXISTS (SELECT AGE FROM CUSTOMERS WHERE SALARY > 40000);
+SELECT AGE FROM CUSTOMER WHERE EXISTS (SELECT AGE FROM CUSTOMERS WHERE SALARY > 40000)
+                                                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT AGE FROM CUSTOMER WHERE EXISTS (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+       AGE
+----------
+        25
+        20
+        50
+        30
+        60
+
+SQL> SELECT AGE FROM CUSTOMER WHERE SALARY > 40000;
+
+       AGE
+----------
+        25
+        60
+
+SQL> SELECT AGE FROM CUSTOMER WHERE EXISTS (SELECT AGE FROM CUSTOMER WHERE SALARY > 65000);
+
+       AGE
+----------
+        25
+        20
+        50
+        30
+        60
+
+SQL> SELECT AGE FROM CUSTOMER WHERE EXISTS (SELECT AGE FROM CUSTOMER WHERE SALARY > 6500);
+
+       AGE
+----------
+        25
+        20
+        50
+        30
+        60
+
+SQL> SELECT AGE FROM CUSTOMER WHERE EXISTS (SELECT AGE FROM CUSTOMER WHERE SALARY > 650000);
+
+no rows selected
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE > ALL (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+no rows selected
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE > Any (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> SELECT AGE FROM CUSTOMER WHERE SALARY > 40000;
+
+       AGE
+----------
+        25
+        60
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE > ALL (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+no rows selected
+
+SQL> select * from customer;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE >= ALL (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       105 Bindu              60 GTN             70000
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE > ALL (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+no rows selected
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE > Any (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> SELECT AGE FROM CUSTOMER WHERE SALARY > 40000;
+
+       AGE
+----------
+        25
+        60
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE > ALL (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+no rows selected
+
+SQL> SELECT * FROM CUSTOMER WHERE AGE >= Any (SELECT AGE FROM CUSTOMER WHERE SALARY > 40000);
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer where age>30;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       103 Supraja            50 KMM             40000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer where age>30 and salary>50000;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer where age>30 or salary>50000;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       103 Supraja            50 KMM             40000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer where age>30;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       103 Supraja            50 KMM             40000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer where age>30 order by name;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       105 Bindu              60 GTN             70000
+       103 Supraja            50 KMM             40000
+
+SQL> select * from customer order by name asc;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       105 Bindu              60 GTN             70000
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       104 Supraja            30 KMM             30000
+       103 Supraja            50 KMM             40000
+
+SQL> select * from customer;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from customer order by name;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       105 Bindu              60 GTN             70000
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       104 Supraja            30 KMM             30000
+       103 Supraja            50 KMM             40000
+
+SQL> select * from customer order by name desc;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       103 Supraja            50 KMM             40000
+       104 Supraja            30 KMM             30000
+       102 Nandhini           20 VJA             20000
+       101 Krishna            25 Hyd             50000
+       105 Bindu              60 GTN             70000
+
+SQL> select name from customer order by name desc;
+
+NAME
+----------
+Supraja
+Supraja
+Nandhini
+Krishna
+Bindu
+
+SQL> select name,id from customer order by name desc;
+
+NAME               ID
+---------- ----------
+Supraja           103
+Supraja           104
+Nandhini          102
+Krishna           101
+Bindu             105
+
+SQL> select name as cname,id as cid from customer order by name desc;
+
+CNAME             CID
+---------- ----------
+Supraja           103
+Supraja           104
+Nandhini          102
+Krishna           101
+Bindu             105
+
+SQL> create view cv1 as id,name,salary where age>30;
+create view cv1 as id,name,salary where age>30
+                   *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> create view cv1 as select id,name,salary where age>30;
+create view cv1 as select id,name,salary where age>30
+                                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> create view cv1 as select id,name,salary from customer where age>30;
+
+View created.
+
+SQL> select * from cv1;
+
+        ID NAME           SALARY
+---------- ---------- ----------
+       103 Supraja         40000
+       105 Bindu           70000
+
+SQL> select id,name,salary from customer where age>30;
+
+        ID NAME           SALARY
+---------- ---------- ----------
+       103 Supraja         40000
+       105 Bindu           70000
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+CUSTOMER                       TABLE
+CV1                            VIEW
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+S2                             TABLE
+STUDENT                        TABLE
+
+7 rows selected.
+
+SQL> update customer set salary=44000 where id=103;
+
+1 row updated.
+
+SQL> select * from customer;
+
+        ID NAME              AGE ADDRESS        SALARY
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            25 Hyd             50000
+       102 Nandhini           20 VJA             20000
+       103 Supraja            50 KMM             44000
+       104 Supraja            30 KMM             30000
+       105 Bindu              60 GTN             70000
+
+SQL> select * from cv1;
+
+        ID NAME           SALARY
+---------- ---------- ----------
+       103 Supraja         44000
+       105 Bindu           70000
+
+SQL>
