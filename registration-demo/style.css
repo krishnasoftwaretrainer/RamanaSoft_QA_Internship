@@ -6,6 +6,9 @@ body {
 h2 {
     text-align: center;
 }
+.required {
+    color: red;
+}
 
 form {
     width: 350px;
