@@ -1,0 +1,13 @@
+MANUAL TESTING  ONLINE TEST-1
+
+Test URL:	https://forms.gle/KTwkJeT5ZixTvh217
+
+Instructions:
+-----------
+Total Questions: 25 Multiple Choice Questions (MCQs)
+Test Duration: 25 minutes
+Each question carries 2 mark
+No negative marking
+Do not refresh the page during the test
+Submit the form once all questions are completed
+
