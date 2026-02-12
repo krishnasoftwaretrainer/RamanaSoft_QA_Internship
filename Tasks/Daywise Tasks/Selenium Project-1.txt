@@ -1,0 +1,201 @@
+Selenium Project-1:
+
+Checkbox Demo:
+===========
+Task-1: Single Checkbox Validation
+
+Steps:
+
+Launch the browser.
+
+Open the URL
+https://www.testmuai.com/selenium-playground/checkbox-demo/
+
+Verify “Single Checkbox Demo” checkbox is not selected by default.
+
+Click on the single checkbox.
+
+Verify the success message is displayed.
+
+Validate the message text as:
+“Success – Check box is checked”
+
+Close the browser.
+
+Expected Result:
+
+Checkbox should be unchecked initially.
+
+After clicking, checkbox should be checked.
+
+Success message should be displayed with correct text.
+------------------------
+
+Task-2: Multiple Checkbox – Check All
+
+Steps:
+
+Locate all checkboxes under “Multiple Checkbox Demo”.
+
+Verify all checkboxes are unchecked by default.
+
+Click on “Check All” button.
+
+Verify all checkboxes are checked.
+
+Verify button text changes to “Uncheck All”.
+
+Expected Result:
+
+All checkboxes should be selected.
+
+Button label should change to Uncheck All.
+-------------------------
+Task-3: Multiple Checkbox – Uncheck All
+
+Steps:
+
+Click on “Uncheck All” button.
+
+Verify all checkboxes are unchecked.
+
+Verify button text changes back to “Check All”.
+
+Expected Result:
+
+All checkboxes should be deselected.
+
+Button label should revert to Check All.
+-----------------------
+Task-4 : Individual Checkbox Validation
+
+Steps:
+
+Select only one checkbox from multiple checkbox list.
+
+Verify remaining checkboxes are unchecked.
+
+Select remaining checkboxes one by one.
+
+Verify “Check All” button text changes automatically.
+
+Expected Result:
+
+Checkbox selection should work independently.
+
+Button text should update correctly.
+===================================================================
+Alert Box Demo:
+
+Task-1: JavaScript Alert (Simple Alert)
+
+Steps:
+
+Launch browser.
+
+Open the URL
+https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/
+
+Click the “Click me!” button under JavaScript Alert Box.
+
+Handle the alert.
+
+Accept the alert.
+
+Verify the alert text shown is:
+“I am an alert box!”
+
+Close the browser.
+
+Expected Result:
+
+Alert appears with correct text.
+
+Alert is accepted successfully.
+----------------------------------------
+
+Task-2: JavaScript Confirm Box – OK
+
+Steps:
+
+Click the “Click me!” button under JavaScript Confirm Box.
+
+Handle the confirm alert.
+
+Click OK on the confirm alert.
+
+Verify result text appears as:
+“You pressed OK!”
+(or similar text shown on page)
+
+Close the browser.
+
+Expected Result:
+
+Confirm alert displays correct text.
+
+OK action updates result message accordingly.
+--------------------------------
+
+Task-3: JavaScript Confirm Box – Cancel
+
+Steps:
+
+Click the “Click me!” button under JavaScript Confirm Box.
+
+Handle the confirm alert.
+
+Click Cancel on the confirm alert.
+
+Verify result text appears as:
+“You pressed Cancel!”
+(or similar text shown on page)
+
+Close the browser.
+
+Expected Result:
+
+Confirm alert is dismissed.
+
+Page displays correct cancel message.
+--------------------------
+Task-4: JavaScript Prompt Box – Enter Text
+
+Steps:
+
+Click the “Click for Prompt Box” button.
+
+Handle the prompt alert.
+
+Enter a name (e.g., John).
+
+Accept the prompt.
+
+Verify the displayed message shows the entered name.
+
+Close the browser.
+
+Expected Result:
+
+Prompt accepts input.
+
+Page displays the entered name in result.
+---------------------------
+
+Task-5 : Prompt Alert – Cancel
+
+Steps:
+
+Click “Click for Prompt Box”.
+
+Cancel the prompt alert.
+
+Verify page displays appropriate message for cancel action.
+
+Close the browser.
+
+Expected Result:
+
+Prompt is dismissed.
+
+Page shows the correct cancellation message.
