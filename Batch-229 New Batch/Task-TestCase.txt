@@ -1,0 +1,37 @@
+STLC:
+----
+RA 
+TS 
+TC:
+Task-1
+----
+Login:SwagLabs:https://www.saucedemo.com/
+Valid Username and Valid Password
+Expected:Should open SwagLabs products page.
+Valid Username and Invalid Password
+Excepted:Should display Error message: Epic sadface: Username and password do not match any user in this service
+Invalid Username and Valid Password:
+Excepted:Should display Error message: Epic sadface: Username and password do not match any user in this service
+Invalid Username and Invalid Password:
+Excepted:Should display Error message: Epic sadface: Username and password do not match any user in this service
+
+Valid Username and Blank
+Invalid Username and Blank
+Blank and Valid Password
+Blank and Invalid Password
+Blank and Blank
+
+Task-2:
+------
+Amazon LoginPage:https://www.amazon.in/
+TC1:Test Steps: Enter valid mobile number and clcik on continue button.
+TestData:9493217167
+Excepted:Should move to password page 
+
+TC2:Test Steps: Enter invalid mobile number and clcik on continue button.
+TestData:65465465
+Excepted:Should display error message:Invalid mobile number
+
+TC3:Test Steps:Leave mobile number empty and clcik on continue button.
+TestData:65465465
+Excepted:Should display error message:Enter your mobile number or email
