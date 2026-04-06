@@ -1,0 +1,18 @@
+Test Link: https://interview.ramanasoft.com/applications/04eb6841-46ee-40bb-8415-234cbca73bfc
+
+Question 01: Tell us about yourself.
+Question 02: Define repository ? What is the difference between a local repository and a remote repository?
+Question 03: What does the command git clone do, and when do we use it? Paste your screenshot as a reference for git clone
+Question 04: Explain the purpose of git status and what information it shows.
+Question 05: What is staging in Git and why is it important before committing?
+Question 06: What is the difference between git push and git pull? Do provide push and pull practice proof from your repository
+Question 07: Explain the complete lifecycle of a file in Git from untracked → tracked → modified → staged → committed, including all states and transitions in your repository
+Question 08: In a team project, two developers modified the same file and pushed changes. Explain step-by-step how Git detects and handles merge conflicts internally, and how you would resolve them.
+Question 09:  Describe how branching works internally in Git (not just conceptually). What exactly happens in .git when you create a new branch?
+Question 10: Describe how branching works internally in Git . What exactly happens in .git when you create a new branch? show me the same in your repository and explain.
+Question 11: Explain the difference between git fetch, git pull, and git merge at a deeper level including how remote tracking branches work.
+Question 12: Show me a demo on Git fetch , Git PULL m Git Merge commands in your repository
+Question 13: What is HEAD in Git, and explain in detail what happens in a detached HEAD state, including risks and recovery steps.
+Question 14: Show me a demo of your project repository and explain commits history , push ,pull , create conflict and resolve the conflict
+Question 15: Show me a demo on your project and explain creating a new branch and merge the newly created branch changes into Master Branch
+Question 16: Show me a demo on your project and explain how to merge the Master branch changes into newly created branch
