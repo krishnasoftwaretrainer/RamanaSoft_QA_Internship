@@ -1,0 +1,203 @@
+Selenium Project
+----------------
+Domain: E-Commerce 
+Application Name: DemoBlaze[PRODUCT STORE]
+URL: https://www.demoblaze.com/
+
+End-to-End App Testing:
+
+TEST SCENARIOS – DEMOBLAZE (PRODUCT STORE)
+
+TS1: Sign Up:
+----------
+TC1 Valid Username and Valid Password → System should display "Sign up successful" alert
+TC2 Valid Username and Blank Password → Alert should be displayed (no strict validation in app) [Please fill out Username and Password.]
+TC3 Blank Username and Valid Password → Alert should be displayed
+TC4 Blank Username and Blank Password → Alert should be displayed
+
+TC5 Existing Username → System should display "This user already exist"
+TC6 Existing Username with different password → Same alert should be displayed
+TC7 New Username with any password → Sign up should be successful
+
+TC8 Click Close button → Sign up modal should close
+TC9 Click Cross (X) → Sign up modal should close
+
+Validation:
+Alert message text should match expected
+Modal should open and close correctly
+
+TS2: Log in:
+----------
+TC1 Valid Username and Valid Password → User should be logged in successfully
+TC2 Valid Username and Invalid Password → System should display "Wrong password" alert
+TC3 Invalid Username and Valid Password → System should display "User does not exist"
+TC4 Invalid Username and Invalid Password → Error alert should be displayed
+
+TC5 Blank Username and Password → Alert should be displayed (no strict validation)
+
+TC6 Click Close button → Login modal should close
+TC7 Click Cross (X) → Login modal should close
+
+TC8 Successful login → Username should be displayed on navigation bar
+TC9 Click Logout → User should be logged out and username should disappear
+
+Validation:
+Username should be visible after login
+Alert messages should match expected
+Session should be updated after logout
+
+TS3: About Us:
+----------
+TC1 Click About Us → About Us modal should open
+TC2 Video section should be visible inside modal
+TC3 Click Play → Video should start (may vary based on browser behavior)
+
+TC4 Click Close button → Modal should close
+TC5 Click Cross (X) → Modal should close
+
+Validation:
+Modal visibility should be correct
+Video iframe should be loaded
+
+TS4: Contact:
+---------
+TC1 Click Contact → Contact modal should open
+
+TC2 Enter Email, Name, Message and click Send → System should display "Thanks for the message" alert
+TC3 Click Send without entering data → Same alert should be displayed (no validation in app)
+
+TC4 Click Close button → Modal should close
+TC5 Click Cross (X) → Modal should close
+
+Validation:
+Alert message should be displayed
+Modal behavior should be correct
+
+TS5: Log out:
+------------
+TC1 Login with valid credentials
+TC2 Click Logout
+
+Expected Result:
+User should be logged out
+Login option should be visible again
+Username should not be displayed
+
+Note:
+Cart is still accessible after logout (application limitation)
+
+TS6: Slide Button (Carousel):
+--------------------
+TC1 Click Right arrow → Next image should be displayed
+TC2 Click Left arrow → Previous image should be displayed
+TC3 Wait for auto-slide → Images should change automatically
+TC4 Click arrows multiple times → Application should remain stable
+
+Validation:
+Images should change correctly
+No UI break should occur
+
+TS7: Products Adding to Cart:
+-------------------
+
+Phones:
+TC1 Select Samsung Galaxy S6 → Click Add to cart → Alert should be displayed
+TC2 Navigate back → Select iPhone 6 → Add to cart
+TC3 Go to Cart → Both products should be displayed
+
+Laptops:
+TC4 Go to Home → Select Sony Vaio → Add to cart
+TC5 Navigate back → Select MacBook Pro → Add to cart
+TC6 Go to Cart → Products should be displayed
+
+Monitors:
+TC7 Go to Home → Select Apple Monitor → Add to cart
+TC8 Navigate back → Select ASUS Monitor → Add to cart
+TC9 Go to Cart → Products should be displayed
+
+Validation:
+Alert message "Product added" should be displayed
+Products should appear in cart
+
+TS8: Cart:
+-----------
+TC1 Add products to cart
+TC2 Navigate to Cart page
+
+TC3 Verify products are listed
+TC4 Click Delete → Product should be removed (may take few seconds)
+
+TC5 Add multiple products
+TC6 Verify total price
+
+Validation:
+Cart should display correct products
+Price calculation should be correct
+
+TS9: Previous and Next (Pagination):
+------------
+TC1 Click Next → Next set of products should load
+TC2 Click Previous → Previous products should load
+TC3 Perform multiple navigations
+
+Validation:
+Product list should update
+Page should not be blank
+
+TS10: Place Order:
+--------------
+TC1 Add product and navigate to Cart
+TC2 Click Place Order
+
+TC3 Enter Name, Country, City, Card, Month, Year
+TC4 Click Purchase → Confirmation popup should appear
+
+TC5 Verify order details:
+Order ID
+Amount
+
+TC6 Click OK → User should be redirected to home
+
+TC7 Submit form without entering details → Order still gets placed (application limitation)
+
+Validation:
+Confirmation popup should be displayed
+Order details should be visible
+
+TS11: Home:
+---------
+TC1 Click Home → User should be redirected to homepage
+
+TC2 Verify:
+Categories are visible
+Products are displayed
+
+TC3 Click Logo → Redirect to homepage
+
+Validation:
+Navigation should work correctly
+
+TS12: PRODUCT STORE (Landing Page):
+--------------
+TC1 Launch application URL
+
+TC2 Verify:
+Page title should be "STORE"
+URL should be correct
+Logo should be visible
+
+TC3 Verify navigation menu:
+Home
+Contact
+About Us
+Cart
+Log in
+
+TC4 Verify categories:
+Phones
+Laptops
+Monitors
+
+Validation:
+All UI elements should be visible
+Page should load properly

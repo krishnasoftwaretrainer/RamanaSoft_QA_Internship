@@ -1,0 +1,122 @@
+Sample  MANUAL TEST CASES (TS1 → TS12) for
+DemoBlaze Web App:
+
+TS1: Sign Up:
+-------------
+TC ID	Test Scenario	Test Steps	Expected Result
+------------------------------------------------------
+TC1	Valid Username & Password	Click Sign Up → Enter valid username & password → Click Sign Up	"Sign up successful" alert
+TC2	Valid Username & Blank Password	Enter username → Leave password blank → Click Sign Up	Validation alert
+TC3	Blank Username & Valid Password	Leave username blank → Enter password → Click Sign Up	Validation alert
+TC4	Blank Username & Password	Leave both blank → Click Sign Up	Validation alert
+TC5	Existing Username	Enter already registered username → Click Sign Up	"User already exists"
+TC6	Existing Username + New Password	Enter existing username + new password	"User already exists"
+TC7	New Username + Existing Password	Enter new username + any password	Success alert
+TC8	Close Button	Click Sign Up → Click Close	Popup closed
+TC9	Cross (X)	Click Sign Up → Click X	Popup closed
+
+ TS2: Log in:
+-----------
+TC ID	Test Scenario	Steps	Expected Result
+TC1	Valid Login	Enter valid username & password	Login successful
+TC2	Invalid Password	Valid username + wrong password	Error alert
+TC3	Invalid Username	Wrong username + valid password	Error alert
+TC4	Invalid Credentials	Wrong username + wrong password	Error alert
+TC5	Blank Username	Leave username blank	Validation alert
+TC6	Blank Password	Leave password blank	Validation alert
+TC7	Both Blank	Leave both fields empty	Validation alert
+TC8	Close Button	Click Close	Popup closed
+TC9	Cross (X)	Click X	Popup closed
+TC10	Verify Username Display	Login → Observe navbar	Username displayed
+TC11	Logout	Click Logout	Session cleared
+
+TS3: About Us
+--------------
+TC ID	Scenario	Steps	Expected Result
+TC1	Open About Us	Click About Us	Popup displayed
+TC2	Video Check	Observe video	Video visible
+TC3	Play Video	Click play	Video plays
+TC4	Close Button	Click Close	Popup closed
+TC5	Cross Button	Click X	Popup closed
+
+TS4: Contact
+----------
+TC ID	Scenario	Steps	Expected Result
+TC1	Open Contact	Click Contact	Popup displayed
+TC2	Valid Submission	Enter email, name, message → Send	Success alert
+TC3	Blank Fields	Click Send without input	Validation alert
+TC4	Only Email	Enter only email	Validation alert
+TC5	Only Name	Enter only name	Validation alert
+TC6	Only Message	Enter only message	Validation alert
+TC7	Close Button	Click Close	Popup closed
+TC8	Cross Button	Click X	Popup closed
+
+TS5: Log out
+--------
+TC ID	Scenario	Steps	Expected Result
+TC1	Logout Flow	Login → Click Logout	Logged out
+TC2	Verify UI	After logout	Login button visible
+TC3	Session Check	Try accessing cart	User logged out
+
+TS6: Slide Buttons
+-------------
+TC ID	Scenario	Steps	Expected Result
+TC1	Right Slide	Click right arrow	Next image displayed
+TC2	Left Slide	Click left arrow	Previous image displayed
+TC3	Auto Slide	Wait	Images auto change
+TC4	Continuous Click	Click arrows multiple times	No UI break
+
+TS7: Add Products to Cart
+-----------------
+TC ID	Scenario	Steps	Expected Result
+TC1	Add Samsung	Phones → Samsung → Add to cart	Product added alert
+TC2	Add iPhone	Back → Phones → iPhone → Add	Product added
+TC3	Verify Phones	Go to Cart	Both products visible
+TC4	Add Sony	Home → Laptops → Sony → Add	Product added
+TC5	Add MacBook	Back → Laptops → MacBook → Add	Product added
+TC6	Verify Laptops	Cart	Products visible
+TC7	Add Monitor	Home → Monitors → Apple → Add	Product added
+TC8	Add ASUS	Back → Monitors → ASUS → Add	Product added
+TC9	Verify Monitors	Cart	Products visible
+
+TS8: Cart:
+---------
+TC ID	Scenario	Steps	Expected Result
+TC1	View Cart	Add product → Open cart	Product displayed
+TC2	Delete Product	Click Delete	Product removed
+TC3	Multiple Items	Add multiple products	All visible
+TC4	Price Check	Observe total	Correct total
+
+ TS9: Previous & Next
+---------------
+TC ID	Scenario	Steps	Expected Result
+TC1	Next Button	Click Next	New products shown
+TC2	Previous Button	Click Previous	Old products shown
+TC3	Navigation	Click multiple times	Works properly
+
+ TS10: Place Order
+--------------
+TC ID	Scenario	Steps	Expected Result
+TC1	Place Order	Add product → Cart → Place Order	Form displayed
+TC2	Valid Order	Fill form → Purchase	Success popup
+TC3	Verify Details	Observe order info	Correct details
+TC4	OK Button	Click OK	Back to home
+TC5	Blank Form	Submit empty	Validation
+TC6	Partial Form	Fill partial data	Validation
+
+TS11: Home
+----------
+TC ID	Scenario	Steps	Expected Result
+TC1	Home Button	Click Home	Home page loaded
+TC2	Categories	Observe page	Categories visible
+TC3	Products	Observe products	Products displayed
+TC4	Logo Click	Click logo	Redirect to home
+
+TS12: PRODUCT STORE
+-----------
+TC ID	Scenario	Steps	Expected Result
+TC1	Launch App	Open URL	Page loads
+TC2	Verify Title	Check title	Correct title
+TC3	Verify Logo	Observe logo	Logo visible
+TC4	Navigation Menu	Check menu	All options present
+TC5	Categories	Check categories	Phones/Laptops/Monitors visible

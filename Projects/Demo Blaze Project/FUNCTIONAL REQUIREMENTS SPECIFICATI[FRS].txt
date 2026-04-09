@@ -1,0 +1,178 @@
+FUNCTIONAL REQUIREMENTS SPECIFICATION (FRS)
+1. DOCUMENT CONTROL
+Version	Date	Prepared By	Reviewed By	Approved By
+1.0	09-Apr-2026	QA Team	QA Lead	Client
+2. PROJECT OVERVIEW
+Field	Details
+Project Name	DemoBlaze – Product Store
+Application Type	Web Application
+Domain	E-Commerce
+URL	https://www.demoblaze.com/
+
+Objective	Validate end-to-end shopping functionality
+3. PURPOSE
+
+This document defines complete functional behavior of the application including:
+
+User authentication
+Product browsing
+Cart & checkout
+UI interactions
+4. SCOPE
+In Scope:
+Sign Up / Login / Logout
+Product selection & navigation
+Cart operations
+Order placement
+Out of Scope:
+Payment gateway validation
+Backend DB validation
+5. USER ROLES
+Role	Permissions
+Guest User	Browse products
+Registered User	Login, Add to cart, Place order
+6. SYSTEM OVERVIEW
+
+The application is a basic e-commerce system where users can:
+
+Select products (Phones, Laptops, Monitors)
+Add items to cart
+Place orders through a form
+Receive confirmation alerts
+7. FUNCTIONAL REQUIREMENTS
+🔹 FR-01: User Registration (Sign Up)
+Field	Details
+Description	User can create account
+Trigger	Click "Sign up"
+Inputs	Username, Password
+Output	Alert message
+Business Rules:
+Username must be unique
+Mandatory fields validation
+Alert-based feedback
+🔹 FR-02: User Login
+Field	Details
+Description	User logs into system
+Trigger	Click "Log in"
+Inputs	Username, Password
+Output	Username displayed on navbar
+Validations:
+Invalid credentials → Error alert
+Successful login → Username visible
+🔹 FR-03: Logout
+Field	Details
+Description	Ends user session
+Trigger	Click Logout
+Output	Login option visible
+🔹 FR-04: Navigation Menu
+Menu Items
+Home
+Contact
+About Us
+Cart
+Log in
+Expected Behavior:
+Each menu redirects correctly
+UI should be responsive
+🔹 FR-05: Product Categories
+Category	Description
+Phones	Mobile devices
+Laptops	Computing devices
+Monitors	Display devices
+Behavior:
+Clicking category filters products
+Products dynamically update
+🔹 FR-06: Product Details Page
+Field	Description
+Description	Shows product info
+Fields	Name, Price, Description
+Behavior:
+Opens on product click
+Displays correct product details
+🔹 FR-07: Add to Cart
+Field	Description
+Trigger	Click "Add to cart"
+Output	Alert message
+Behavior:
+Product added successfully
+Alert confirmation shown
+🔹 FR-08: Cart Management
+Field	Description
+Description	View & manage cart
+Fields	Product, Price, Delete
+Behavior:
+Products listed in cart
+Delete removes item
+Total price updates
+🔹 FR-09: Place Order
+Field	Description
+Trigger	Click "Place Order"
+Inputs	Name, Country, City, Card, Month, Year
+Behavior:
+Form submission generates confirmation
+Displays Order ID & Amount
+🔹 FR-10: About Us
+Field	Description
+Trigger	Click "About Us"
+Output	Video popup
+🔹 FR-11: Contact
+Field	Description
+Inputs	Email, Name, Message
+Output	Confirmation alert
+🔹 FR-12: Carousel (Slider)
+Field	Description
+Location	Homepage
+Behavior	Auto + manual slide
+🔹 FR-13: Pagination
+Field	Description
+Controls	Next / Previous
+Behavior	Loads new products
+🔹 FR-14: Alerts & Popups
+Type	Trigger
+Alert	Add to cart / Signup / Login
+Modal	Login / Signup / Contact
+Behavior:
+Must display correct message
+Must be closable
+8. NON-FUNCTIONAL REQUIREMENTS
+Category	Requirement
+Performance	Page load < 3 sec
+Usability	Simple UI
+Compatibility	Chrome, Edge, Firefox
+Reliability	No crashes
+Security	Basic (demo level)
+9. ASSUMPTIONS
+Internet connection required
+Application is demo (data not persistent)
+Alerts used instead of UI messages
+10. CONSTRAINTS
+No real payment integration
+Limited validation rules
+Static product catalog
+11. REQUIREMENT TRACEABILITY MATRIX (RTM)
+Requirement ID	Module	Test Scenario
+FR-01	Sign Up	TS1
+FR-02	Login	TS2
+FR-03	Logout	TS5
+FR-04	Navigation	TS11
+FR-05	Categories	TS7
+FR-06	Product Details	TS7
+FR-07	Add to Cart	TS7
+FR-08	Cart	TS8
+FR-09	Order	TS10
+FR-10	About Us	TS3
+FR-11	Contact	TS4
+FR-12	Slider	TS6
+FR-13	Pagination	TS9
+FR-14	Alerts	All TS
+12. RISKS & GAP ANALYSIS (REAL-TIME INSIGHT)
+No password security validation
+Alerts instead of proper UI messages
+No session timeout handling
+No order history feature
+No search/filter option
+13. APPROVAL
+Name	Role	Signature
+QA Lead	Reviewer	______
+Dev Lead	Approver	______
+Client	Final Approval	______
