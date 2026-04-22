@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SwagValidInvalidSuite" >
+  <test name="SwagValidInvalidTest">
+    <classes>
+    <class name="testNGSuit.Swag_ValidValid"/>
+      <class name="testNGSuit.Swag_ValidInValid"/>
+      <class name="testNGSuit.Swag_InValidValid"/>
+      <class name="testNGSuit.Swag_InValidInValid"/>
+      </classes>
+  </test> <!-- SwagValidInvalidTest -->
+</suite> <!-- SwagValidInvalidSuite -->
